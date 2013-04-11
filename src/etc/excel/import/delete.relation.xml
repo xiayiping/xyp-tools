@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet index="1" startRow="2">
+	<!-- key : must ; format : optional -->
+	<column key="data_externalid" type="java.lang.String" />
+	<column key="relation_type" title="java.lang.String" />
+	
+	<column key="destination_citype" type="java.lang.String" />
+	<column key="destination_ciexternalid" type="java.lang.String" />
+	
+	<column key="source_citype" type="java.lang.String" />
+	<column key="source_ciexternalid" type="java.lang.String" />
+</sheet>
+		

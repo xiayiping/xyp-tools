@@ -1,0 +1,161 @@
+<root prefix="cmdb">
+
+
+	<sql name="classes.cascade">
+	<![CDATA[
+	select 
+		c.CLASS_ID AS CLZ_ID , 
+		c.CUSTOMER_ID AS CLZ_CUSTOMER_ID,
+		c.CLASS_NAME AS CLZ_NAME,
+		c.DISPLAY_NAME AS CLZ_DISPLAY_NAME,
+		c.PARENT_ID AS CLZ_PARENT_ID,
+		c.CLASS_TYPE AS CLZ_TYPE,
+		c.IS_ACTIVE AS CLZ_ACTIVE,
+		c.NAME_SPACE AS CLZ_NAME_SPACE,
+		c.IS_FACTORY AS CLZ_FACTORY,
+		c.IS_UPDATED AS CLZ_UPDATED ,
+		
+		a.ATTRIBUTE_ID AS ATT_ID,
+		a.CLASS_ID AS ATT_CLZ_ID,
+		a.ATTRIBUTE_NAME AS ATT_NAME,
+		a.DISPLAY_NAME AS ATT_DISPLAY_NAME,
+		a.ATTRIBUTE_TYPE AS ATT_ATTRIBUTE_TYPE,
+		a.DEFAULT_VALUE AS ATT_DEFAULT_VALUE,
+		a.VALUE_SIZE AS ATT_SIZE,
+		a.FULL_OVERRIDE AS ATT_FULL_OVERRIDE,
+		a.PARTIAL_OVERRIDE AS ATT_PARTIAL_OVERRIDE,
+		a.IS_EMPTY AS ATT_EMPTY,
+		a.IS_FACTORY AS ATT_FACTORY,
+		a.IS_UPDATED AS ATT_UPDATED,
+		a.ATTRIBUTE_INDEX AS ATT_ATTRIBUTE_INDEX,
+		a.DESCRIPTION AS ATT_DESCRIPTION,
+		
+		q.qualifier_name as QUALIFIER_NAME
+	from 
+		cmdb_cmdb.ccm_classes c
+	left join 
+		cmdb_cmdb.ccm_attribute a
+		on a.CLASS_ID = c.ClASS_ID
+	left join
+		cmdb_cmdb.ccm_qualifier q
+		on q.ENTITY_ID = a.ATTRIBUTE_ID
+		
+	where c.CLASS_TYPE = 'OBJECT' AND c.PARENT_ID  
+	#if( $parent_id ) = ? #else is null #end 
+	]]>	
+	</sql>
+	
+	<sql name="classes">
+	<![CDATA[
+	select 
+		c.CLASS_ID AS CLZ_ID , 
+		c.CUSTOMER_ID AS CLZ_CUSTOMER_ID,
+		c.CLASS_NAME AS CLZ_NAME,
+		c.DISPLAY_NAME AS CLZ_DISPLAY_NAME,
+		c.PARENT_ID AS CLZ_PARENT_ID,
+		c.CLASS_TYPE AS CLZ_TYPE,
+		c.IS_ACTIVE AS CLZ_ACTIVE,
+		c.NAME_SPACE AS CLZ_NAME_SPACE,
+		c.IS_FACTORY AS CLZ_FACTORY,
+		c.IS_UPDATED AS CLZ_UPDATED 
+	from 
+		cmdb_cmdb.ccm_classes c
+	where c.CLASS_TYPE = 'OBJECT' AND c.PARENT_ID    
+	#if( $parent_id ) = ? #else is null #end   
+	]]>	
+	</sql>
+	
+	<sql name="attributes">
+	<![CDATA[
+	select 
+		
+		a.ATTRIBUTE_ID AS ATT_ID,
+		a.CLASS_ID AS ATT_CLZ_ID,
+		a.ATTRIBUTE_NAME AS ATT_NAME,
+		a.DISPLAY_NAME AS ATT_DISPLAY_NAME,
+		a.ATTRIBUTE_TYPE AS ATT_ATTRIBUTE_TYPE,
+		a.DEFAULT_VALUE AS ATT_DEFAULT_VALUE,
+		a.VALUE_SIZE AS ATT_SIZE,
+		a.FULL_OVERRIDE AS ATT_FULL_OVERRIDE,
+		a.PARTIAL_OVERRIDE AS ATT_PARTIAL_OVERRIDE,
+		a.IS_EMPTY AS ATT_EMPTY,
+		a.IS_FACTORY AS ATT_FACTORY,
+		a.IS_UPDATED AS ATT_UPDATED,
+		a.ATTRIBUTE_INDEX AS ATT_ATTRIBUTE_INDEX,
+		a.DESCRIPTION AS ATT_DESCRIPTION
+		
+	from		
+		cmdb_cmdb.ccm_attribute a
+	where a.CLASS_ID  = ? 
+	]]>	
+	</sql>
+
+	<sql name="attributes.qualifiers">
+	<![CDATA[
+	select 
+		
+		a.ATTRIBUTE_ID AS ATT_ID,
+		a.CLASS_ID AS ATT_CLZ_ID,
+		a.ATTRIBUTE_NAME AS ATT_NAME,
+		a.DISPLAY_NAME AS ATT_DISPLAY_NAME,
+		a.ATTRIBUTE_TYPE AS ATT_ATTRIBUTE_TYPE,
+		a.DEFAULT_VALUE AS ATT_DEFAULT_VALUE,
+		a.VALUE_SIZE AS ATT_SIZE,
+		a.FULL_OVERRIDE AS ATT_FULL_OVERRIDE,
+		a.PARTIAL_OVERRIDE AS ATT_PARTIAL_OVERRIDE,
+		a.IS_EMPTY AS ATT_EMPTY,
+		a.IS_FACTORY AS ATT_FACTORY,
+		a.IS_UPDATED AS ATT_UPDATED,
+		a.ATTRIBUTE_INDEX AS ATT_ATTRIBUTE_INDEX,
+		a.DESCRIPTION AS ATT_DESCRIPTION,
+		
+		q.qualifier_name as QUALIFIER_NAME
+	from		
+		cmdb_cmdb.ccm_attribute a
+	left join
+		cmdb_cmdb.ccm_qualifier q
+		on q.ENTITY_ID = a.ATTRIBUTE_ID	
+	where a.CLASS_ID  = ? 
+	]]>	
+	</sql>
+	
+	<sql name="qualifiers">
+	<![CDATA[
+	select 
+		q.ENTITY_ID as ENTITY_ID		,
+		q.qualifier_name as QUALIFIER_NAME
+	from 
+		cmdb_cmdb.ccm_qualifier q	
+	where q.ENTITY_ID = ? 
+	]]>	
+	</sql>
+	
+	<sql name="enum">
+	<![CDATA[
+	select 
+		def.type_def_id as TYPE_DEF_ID ,
+		def.type_def_name as TYPE_DEF_NAME ,
+		def.display_name as TYPE_DISPLAY_NAME ,
+		enu.enum_key as ENUM_KEY,
+		enu.enum_value as ENUM_VALUE,
+		enu.enum_index as ENUM_INDEX
+		from cmdb_cmdb.ccm_type_defs def
+		left join cmdb_cmdb.ccm_tdef_enum enu
+			on  def.type_def_id = enu.type_def_id
+		where def.type_def_type='ENUM' and not enu.enum_value like('zzz%') 
+		order by TYPE_DEF_ID, ENUM_INDEX
+	]]>	
+	</sql>
+	
+	
+	<!--
+	
+	select 
+		count(*)
+		from cmdb_cmdb.ccm_type_defs def
+		left join cmdb_cmdb.ccm_tdef_enum enu
+			on  def.type_def_id = enu.type_def_id
+		where def.type_def_type='ENUM' and not enu.enum_value like('zzz%') 
+		order by TYPE_DEF_ID, ENUM_KEY 
+	 -->
+</root>

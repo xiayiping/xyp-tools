@@ -1,0 +1,40 @@
+<root prefix="rc">
+
+
+	<sql name="check.users">
+	<![CDATA[
+	select 
+		u.ID as ID,
+		u.VERSION as VERSION,
+		u.EMAIL as EMAIL,
+		u.FIRST_NAME as FIRST_NAME,
+		u.LAST_NAME as LAST_NAME,
+		u.IS_ENABLED as IS_ENABLED,
+		u.IS_REMOVED as IS_REMOVED,
+		u.LOGIN_NAME as LOGIN_NAME,
+		u.BUSINESS_ID as BUSINESS_ID
+	from System.CCM_USERS u
+	where
+		u.EMAIL is null or (u.FIRST_NAME = u.LAST_NAME and u.FIRST_NAME = u.LOGIN_NAME) 
+	order by u.EMAIL ,u.LOGIN_NAME
+	]]>	
+	</sql>
+	
+	<sql name="check.users.all">
+	<![CDATA[
+	select 
+		u.ID as ID,
+		u.VERSION as VERSION,
+		u.EMAIL as EMAIL,
+		u.FIRST_NAME as FIRST_NAME,
+		u.LAST_NAME as LAST_NAME,
+		u.IS_ENABLED as IS_ENABLED,
+		u.IS_REMOVED as IS_REMOVED,
+		u.LOGIN_NAME as LOGIN_NAME,
+		u.BUSINESS_ID as BUSINESS_ID
+	from System.CCM_USERS u
+	
+	order by u.ID
+	]]>	
+	</sql>
+</root>

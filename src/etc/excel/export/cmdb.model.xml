@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet name="ucmdb.models" sheetNameColor="RED" titleColor="YELLOW">
+	<!-- key : must ; format : optional -->
+	<column key="cmdbClass.displayNameForIndent" title="class display name" allowDuplicate="false" />
+	<column key="cmdbClass.name" title="class name" allowDuplicate="false" />
+	<column key="name" title="attribute name" />
+	<column key="displayName" title="attribute display name" />
+	<column key="size" title="size" />
+	
+	<column key="attributeInheritType" title="Inherit Type" />
+	
+	<column key="attributeType" title="Type" />
+	<column key="id" title="att_id" />
+	<column key="updated" title="att_updated" />
+	
+	
+	<column key="idQualifier" title="ID" />
+	
+	<column key="hiddenQualifier" title="Hidden" />
+	<column key="readOnlyQualifier" title="Read Only" />
+	<column key="uniqueQualifier" title="Unique" />
+	<column key="requiredQualifier" title="Required" />
+	<column key="indexQualifier" title="Index" />
+	<column key="changeMonitoredQualifier" title="Change Monitored" />
+	
+	<column key="internalAttribute" title="Internal" />
+	<column key="comparableQualifier" title="Comparable" />	
+	
+	<column key="autoTruncateQualifier" title="Auto Truncate" />
+	
+	
+	<column key="upperCaseQualifier" title="Upper Case" />
+	<column key="lowerCaseQualifier" title="Lower Case" />
+	<column key="staticQualifier" title="Static" />
+	
+	<column key="assetDataQualifier" title="Asset" />
+	<column key="passwordQualifier" title="Password" />
+	
+</sheet>
+		

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body {
+	font-size: 16px;
+}
+
+p,ul {
+	margin-left: 16px;
+}
+
+.notice {
+	color: red;
+}
+
+.emp {
+	font-weight: bold;
+}
+
+.emp-notice {
+	font-weight: bold;
+	color: red;
+}
+
+.more-emp {
+	font-weight: bold;
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	Hello $lastname,
+	<p class="notice">
+		******** <span class="emp">Please do not delete this e-mail.</span>
+		You have been identified as a user who will need access to the Alu
+		UCMDB and Release Control application for future use in support of
+		Change and Configuration Management processes. ************
+	</p>
+	<ul>
+		<li>This message is the confirmation notice regarding your Alu
+			Production UCMDB account and Production Release Control account.</li>
+		<li>This message contains the <span class="emp">User Name</span>
+			and the <span class="emp">links to the UCMDB and Release
+				Control Login page</span>.
+		</li>
+		<li>UCMDB/RC login password will be sent in a separated email.</li>
+		<li>User IDs and Passwords are <span class="emp">case
+				sensitive</span>.
+		</li>
+		<li>Please <span class="more-emp">reset your password
+				within 72 hours</span> of receiving this email, in line with security
+			guidelines. If you do not reset your password you run the risk of the
+			account being disabled.
+		</li>
+		<li>You should login the HPP service first before the UCMDB login
+			page, the HPP account would be sent in a separated email.</li>
+		<li>You should login by your HP email and NT domain password
+			before the RC login page.</li>
+	</ul>
+	<p>
+		<span class="emp">Account Information:</span> <br /> User Name: <span
+			class="emp-notice">$username</span>
+	</p>
+	<p>
+		<span class="emp">HP UCMDB Login Link:</span> <a
+			href="https://eu-p.serviceportal.hp.com/ucmdb/">https://eu-p.serviceportal.hp.com/ucmdb/</a>
+		<br /> <span class="emp">HP Release Control Login Link:</span> <a
+			href="https://eu-i.serviceportal.hp.com/ccm/">https://eu-i.serviceportal.hp.com/ccm/</a>
+	</p>
+	<br/>
+	<p>Alu UCMDB/RC Support Team</p>
+	<br /> #include('sign.html')
+</body>
+</html>

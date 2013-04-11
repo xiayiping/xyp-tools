@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet name="duplicate">
+	<!-- key : must ; format : optional -->
+	
+	<column key="UCMDBId" title="UCMDB Id" titleStyle="YELLOW" />
+	<column key="LogicalName" title="Logical Name" titleStyle="YELLOW" />
+	
+</sheet>
+		

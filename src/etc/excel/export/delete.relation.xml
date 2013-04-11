@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet name="delete.relation">
+	<!-- key : must ; format : optional -->
+	
+	<column key="data_externalid" title="data_externalid" titleStyle="YELLOW" />
+	<column key="relation_type" title="relation_type" titleStyle="YELLOW" />
+	
+	
+	<column key="destination_citype" title="destination_citype" titleStyle="YELLOW" />
+	<column key="destination_ciexternalid" title="destination_ciexternalid" titleStyle="RED" />
+	<column key="source_citype" title="source_citype" titleStyle="YELLOW" />
+	<column key="source_ciexternalid" title="source_ciexternalid" titleStyle="RED" />
+	
+	<column key="result" title="result" />
+	<column key="msg" title="message" />
+	
+	<column key="data_origin" title="data_origin"  />
+	
+</sheet>
+		

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet index="1" startRow="2">
+	<!-- key : must ; format : optional -->
+	<column key="data_externalid" type="java.lang.String" />
+	<column key="ci_type" title="java.lang.String" />
+	<column key="data_name" type="java.lang.String" />
+</sheet>
+		

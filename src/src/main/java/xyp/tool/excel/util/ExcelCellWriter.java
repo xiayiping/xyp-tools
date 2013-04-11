@@ -63,14 +63,4 @@ public class ExcelCellWriter {
 			cell.setCellStyle(style);
 	}
 
-	public static void main(String[] args) {
-		double b = 1.123D;
-		System.out.println(b);
-
-		BigDecimal bd = new BigDecimal(1.234);
-		System.out.println(bd);
-
-		Double bb = new Double(1.234D);
-		System.out.println(bb.toString());
-	}
 }

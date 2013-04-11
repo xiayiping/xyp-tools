@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet name="duplicate">
+	<!-- key : must ; format : optional -->
+	
+	<column key="ID" title="ID" />
+	<column key="VERSION" title="VERSION" />
+	<column key="EMAIL" title="EMAIL" />
+	<column key="FIRST_NAME" title="FIRST_NAME" />
+	<column key="LAST_NAME" title="LAST_NAME" />
+	<column key="IS_ENABLED" title="IS_ENABLED" />
+	<column key="IS_REMOVED" title="IS_REMOVED" />
+	<column key="LOGIN_NAME" title="LOGIN_NAME" />
+	<column key="BUSINESS_ID" title="BUSINESS_ID" />
+	
+</sheet>
+		

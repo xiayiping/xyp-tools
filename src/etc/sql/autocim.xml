@@ -1,0 +1,14 @@
+<root prefix="autocim">
+
+	<sql name="get.key.value">
+	<![CDATA[
+	select 
+		VAR_VALUE as var_value
+	from 
+		AUTOCIM_SYS_VAR
+	where 
+		VAR_NAME = :var_name;
+	]]>
+	</sql>
+	
+</root>

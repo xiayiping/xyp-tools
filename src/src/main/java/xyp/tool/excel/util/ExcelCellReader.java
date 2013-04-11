@@ -1,7 +1,5 @@
 package xyp.tool.excel.util;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -385,33 +383,6 @@ public class ExcelCellReader {
 		if (null == cell)
 			return null;
 		return getStringFromCell(cell, evaluator);
-	}
-
-	public static void main(String[] args) {
-		System.out.println(new Double(100.00).toString().replaceAll("\\.0+$", ""));
-
-		Double d1 = new Double(100.92);
-		System.out.println(d1.toString());
-		System.out.println(d1.longValue());
-		// System.out.println(d1.);
-		System.out.println(new Double(100.0066880009999990000000000000).toString().replaceAll(
-				"(\\.0+)$", ""));
-
-		System.out.println("----------------------");
-		BigDecimal db = new BigDecimal(123.45678922222);
-
-		db.setScale(5, RoundingMode.CEILING);
-
-		System.out.println(db);
-		System.out.println(1.2345000D);
-		System.out.println(db.toString());
-		System.out.println(db.toPlainString());
-
-		BigDecimal bd2 = new BigDecimal(1.11);
-		BigDecimal db3 = bd2.divide(new BigDecimal(3));
-		System.out.println(db3);
-
-		// Integer ii = null;
 	}
 
 }
