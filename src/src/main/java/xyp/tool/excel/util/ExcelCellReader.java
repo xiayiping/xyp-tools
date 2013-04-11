@@ -8,6 +8,8 @@ import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
  * except date , return null when the cell is null. boolean returns false if
@@ -31,7 +33,8 @@ public class ExcelCellReader {
 	 *         </ul>
 	 * @throws NumberFormatException
 	 */
-	public static Integer getIntFromCell(Cell cell, FormulaEvaluator evaluator) throws NumberFormatException {
+	public static Integer getIntFromCell(Cell cell, FormulaEvaluator evaluator)
+			throws NumberFormatException {
 		if (cell == null) {
 			return null;
 		}
@@ -48,6 +51,27 @@ public class ExcelCellReader {
 		return null;
 	}
 
+	public static Integer getIntFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
+			throws NumberFormatException {
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getIntFromCell(cell, evaluator);
+	}
+
+	public static Integer getIntFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) throws NumberFormatException {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getIntFromCell(cell, evaluator);
+	}
+
 	/**
 	 * 
 	 * @param cell
@@ -61,7 +85,8 @@ public class ExcelCellReader {
 	 *         </ul>
 	 * @throws NumberFormatException
 	 */
-	public static Long getLongFromCell(Cell cell, FormulaEvaluator evaluator) throws NumberFormatException {
+	public static Long getLongFromCell(Cell cell, FormulaEvaluator evaluator)
+			throws NumberFormatException {
 		if (cell == null) {
 			return null;
 		}
@@ -78,33 +103,25 @@ public class ExcelCellReader {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param cell
-	 * @param evaluator
-	 * @return if cell type is
-	 *         <ul>
-	 *         <li>number: return double value</li>
-	 *         <li>string: parse to double or throws exception</li>
-	 *         <li>formula: return result of formula</li>
-	 *         <li>cell is null or else: return 0</li>
-	 *         </ul>
-	 * @throws NumberFormatException
-	 */
-	public static Float getFloatFromCell(Cell cell, FormulaEvaluator evaluator) throws NumberFormatException {
-		if (cell == null) {
+	public static Long getLongFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
+			throws NumberFormatException {
+		if (null == row)
 			return null;
-		}
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getLongFromCell(cell, evaluator);
+	}
 
-		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-			return new Float(cell.getNumericCellValue());
-		} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-			return Float.parseFloat(cell.getRichStringCellValue().getString());
-		} else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
-			CellValue cellValue = evaluator.evaluate(cell);
-			return new Float(cellValue.getNumberValue());
-		}
-		return null;
+	public static Long getLongFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) throws NumberFormatException {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getLongFromCell(cell, evaluator);
 	}
 
 	/**
@@ -120,7 +137,59 @@ public class ExcelCellReader {
 	 *         </ul>
 	 * @throws NumberFormatException
 	 */
-	public static Double getDoubleFromCell(Cell cell, FormulaEvaluator evaluator) throws NumberFormatException {
+	public static Float getFloatFromCell(Cell cell, FormulaEvaluator evaluator)
+			throws NumberFormatException {
+		if (cell == null) {
+			return null;
+		}
+
+		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+			return new Float(cell.getNumericCellValue());
+		} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+			return Float.parseFloat(cell.getRichStringCellValue().getString());
+		} else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+			CellValue cellValue = evaluator.evaluate(cell);
+			return new Float(cellValue.getNumberValue());
+		}
+		return null;
+	}
+
+	public static Float getFloatFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
+			throws NumberFormatException {
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getFloatFromCell(cell, evaluator);
+	}
+
+	public static Float getFloatFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) throws NumberFormatException {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getFloatFromCell(cell, evaluator);
+	}
+
+	/**
+	 * 
+	 * @param cell
+	 * @param evaluator
+	 * @return if cell type is
+	 *         <ul>
+	 *         <li>number: return double value</li>
+	 *         <li>string: parse to double or throws exception</li>
+	 *         <li>formula: return result of formula</li>
+	 *         <li>cell is null or else: return 0</li>
+	 *         </ul>
+	 * @throws NumberFormatException
+	 */
+	public static Double getDoubleFromCell(Cell cell, FormulaEvaluator evaluator)
+			throws NumberFormatException {
 		if (cell == null) {
 			return null;
 		}
@@ -134,6 +203,27 @@ public class ExcelCellReader {
 			return new Double(cellValue.getNumberValue());
 		}
 		return null;
+	}
+
+	public static Double getDoubleFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
+			throws NumberFormatException {
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getDoubleFromCell(cell, evaluator);
+	}
+
+	public static Double getDoubleFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) throws NumberFormatException {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getDoubleFromCell(cell, evaluator);
 	}
 
 	/**
@@ -165,6 +255,26 @@ public class ExcelCellReader {
 			return "TRUE".equals(s);
 		}
 		return false;
+	}
+
+	public static boolean getBooleanFromCell(Row row, int cellIndex, FormulaEvaluator evaluator) {
+		if (null == row)
+			return false;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return false;
+		return getBooleanFromCell(cell, evaluator);
+	}
+
+	public static boolean getBooleanFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return false;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return false;
+		return getBooleanFromCell(cell, evaluator);
 	}
 
 	/**
@@ -202,6 +312,27 @@ public class ExcelCellReader {
 
 	}
 
+	public static Date getDateFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
+			throws ParseException {
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getDateFromCell(cell, evaluator);
+	}
+
+	public static Date getDateFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) throws ParseException {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getDateFromCell(cell, evaluator);
+	}
+
 	/**
 	 * 
 	 * @param cell
@@ -236,6 +367,26 @@ public class ExcelCellReader {
 		return null;
 	}
 
+	public static String getStringFromCell(Row row, int cellIndex, FormulaEvaluator evaluator) {
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getStringFromCell(cell, evaluator);
+	}
+
+	public static String getStringFromCell(Sheet sheet, int rowIndex, int cellIndex,
+			FormulaEvaluator evaluator) {
+		Row row = sheet.getRow(rowIndex);
+		if (null == row)
+			return null;
+		Cell cell = row.getCell(cellIndex);
+		if (null == cell)
+			return null;
+		return getStringFromCell(cell, evaluator);
+	}
+
 	public static void main(String[] args) {
 		System.out.println(new Double(100.00).toString().replaceAll("\\.0+$", ""));
 
@@ -243,7 +394,8 @@ public class ExcelCellReader {
 		System.out.println(d1.toString());
 		System.out.println(d1.longValue());
 		// System.out.println(d1.);
-		System.out.println(new Double(100.0066880009999990000000000000).toString().replaceAll("(\\.0+)$", ""));
+		System.out.println(new Double(100.0066880009999990000000000000).toString().replaceAll(
+				"(\\.0+)$", ""));
 
 		System.out.println("----------------------");
 		BigDecimal db = new BigDecimal(123.45678922222);
