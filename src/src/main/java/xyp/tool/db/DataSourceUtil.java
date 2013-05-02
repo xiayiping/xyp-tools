@@ -13,16 +13,16 @@ import org.apache.commons.logging.LogFactory;
 public class DataSourceUtil {
 
 	private static Log logger = LogFactory.getLog(DataSourceUtil.class);
-	public static DataSource ds = null;
 
 	public static DataSource getDataSource(File config) {
 		try {
 			Properties prop = new Properties();
 			prop.load(new FileInputStream(config));
-			ds = BasicDataSourceFactory.createDataSource(prop);
+			DataSource ds = BasicDataSourceFactory.createDataSource(prop);
+			return ds;
 		} catch (Exception e) {
 			logger.error(e, e);
 		}
-		return ds;
+		return null;
 	}
 }

@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +20,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import xyp.tool.util.StringComparator;
 import xyp.tool.velocity.VelocityEngineWrapper;
 
 public class SqlContainer {
@@ -40,7 +39,7 @@ public class SqlContainer {
 
 	private VelocityEngineWrapper velocityEngineWrapper = null;
 
-	private TreeMap<String, String> sqlMap = new TreeMap<String, String>(new StringComparator(true));
+	private HashMap<String, String> sqlMap = new HashMap<String, String>();
 
 	public static SqlContainer newInstance(File configFile) {
 		SqlContainer singleton = null;
@@ -126,10 +125,10 @@ public class SqlContainer {
 
 		public void startElement(String uri, String localName, String qName, Attributes attributes)
 				throws SAXException {
-			if (CONFIG_ELE_ROOT.equals(qName)) {
+			if (CONFIG_ELE_ROOT.equals(localName)) {
 				processRoot = true;
 				prefix = attributes.getValue(CONFIG_ATT_PREFIX);
-			} else if (CONFIG_ELE_SQL.equals(qName)) {
+			} else if (CONFIG_ELE_SQL.equals(localName)) {
 
 				sqlName = attributes.getValue(CONFIG_ATT_NAME);
 				sqlsb = new StringBuilder();
@@ -138,11 +137,11 @@ public class SqlContainer {
 		}
 
 		public void endElement(String uri, String localName, String qName) throws SAXException {
-			if (CONFIG_ELE_ROOT.equals(qName)) {
+			if (CONFIG_ELE_ROOT.equals(localName)) {
 				processRoot = false;
-			} else if (CONFIG_ELE_SQL.equals(qName)) {
+			} else if (CONFIG_ELE_SQL.equals(localName)) {
 				processSql = false;
-				sqlMap.put(prefix + "." + sqlName, sqlsb.toString().trim());
+				sqlMap.put(prefix + "." + sqlName, sqlsb.toString().trim() + " ");
 
 			}
 		}
