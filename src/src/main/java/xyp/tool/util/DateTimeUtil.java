@@ -14,7 +14,7 @@ public class DateTimeUtil {
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
 	}
-
+  
 	public static Date getLastWeek() {
 
 		Calendar cal = Calendar.getInstance();
