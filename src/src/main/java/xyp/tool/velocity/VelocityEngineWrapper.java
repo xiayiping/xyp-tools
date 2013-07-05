@@ -45,7 +45,7 @@ public class VelocityEngineWrapper {
 		}
 	}
 
-	public String mergeTemplate(String templateName, Map<String, Object> param) {
+	public String mergeTemplate(String templateName, Map<String, ?> param) {
 
 		StringWriter sw = new StringWriter();
 		mergeTemplate(templateName, param, sw);
@@ -57,13 +57,13 @@ public class VelocityEngineWrapper {
 		return sw.toString();
 	}
 
-	public void mergeTemplate(String templateName, Map<String, Object> param, Writer writer) {
+	public void mergeTemplate(String templateName, Map<String, ?> param, Writer writer) {
 		Template template = velocityEngine.getTemplate(templateName);
 		VelocityContext context1 = new VelocityContext();
 		if (null != param) {
-			Iterator<Entry<String, Object>> iter = param.entrySet().iterator();
+			Iterator<?> iter = param.entrySet().iterator();
 			while (iter.hasNext()) {
-				Entry<String, Object> ent = iter.next();
+				Entry<String, Object> ent = (Entry<String, Object>) (iter.next());
 				context1.put(ent.getKey(), ent.getValue());
 			}
 		}
@@ -96,5 +96,9 @@ public class VelocityEngineWrapper {
 			logger.error(e, e);
 		}
 		return sw.toString();
+	}
+
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
 	}
 }

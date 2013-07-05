@@ -237,9 +237,9 @@ public class ExcelCellReader {
 	 *         <li>cell is null or else: return false</li>
 	 *         </ul>
 	 */
-	public static boolean getBooleanFromCell(Cell cell, FormulaEvaluator evaluator) {
+	public static Boolean getBooleanFromCell(Cell cell, FormulaEvaluator evaluator) {
 		if (cell == null) {
-			return false;
+			return null;
 		}
 		if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
 			return (cell.getBooleanCellValue());
@@ -250,28 +250,32 @@ public class ExcelCellReader {
 			return cellValue.getBooleanValue();
 		} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 			String s = (cell.getRichStringCellValue().getString().trim()).toUpperCase();
-			return "TRUE".equals(s);
+			if ("TRUE".equals(s)) {
+				return Boolean.TRUE;
+			} else if ("FALSE".equals(s)) {
+				return Boolean.FALSE;
+			}
 		}
-		return false;
+		return null;
 	}
 
-	public static boolean getBooleanFromCell(Row row, int cellIndex, FormulaEvaluator evaluator) {
+	public static Boolean getBooleanFromCell(Row row, int cellIndex, FormulaEvaluator evaluator) {
 		if (null == row)
-			return false;
+			return null;
 		Cell cell = row.getCell(cellIndex);
 		if (null == cell)
-			return false;
+			return null;
 		return getBooleanFromCell(cell, evaluator);
 	}
 
-	public static boolean getBooleanFromCell(Sheet sheet, int rowIndex, int cellIndex,
+	public static Boolean getBooleanFromCell(Sheet sheet, int rowIndex, int cellIndex,
 			FormulaEvaluator evaluator) {
 		Row row = sheet.getRow(rowIndex);
 		if (null == row)
-			return false;
+			return null;
 		Cell cell = row.getCell(cellIndex);
 		if (null == cell)
-			return false;
+			return null;
 		return getBooleanFromCell(cell, evaluator);
 	}
 
@@ -290,7 +294,7 @@ public class ExcelCellReader {
 	 *         </ul>
 	 * @throws ParseException
 	 */
-	public static Date getDateFromCell(Cell cell, FormulaEvaluator evaluator) throws ParseException {
+	public static Date getDateFromCell(Cell cell, FormulaEvaluator evaluator) {
 
 		if (cell == null) {
 			return null;
@@ -306,12 +310,11 @@ public class ExcelCellReader {
 			return new Date(lo);
 		}
 
-		throw new ParseException("parse date failed. " + cell.getStringCellValue(), 0);
+		return null;
 
 	}
 
-	public static Date getDateFromCell(Row row, int cellIndex, FormulaEvaluator evaluator)
-			throws ParseException {
+	public static Date getDateFromCell(Row row, int cellIndex, FormulaEvaluator evaluator) {
 		if (null == row)
 			return null;
 		Cell cell = row.getCell(cellIndex);
@@ -321,7 +324,7 @@ public class ExcelCellReader {
 	}
 
 	public static Date getDateFromCell(Sheet sheet, int rowIndex, int cellIndex,
-			FormulaEvaluator evaluator) throws ParseException {
+			FormulaEvaluator evaluator) {
 		Row row = sheet.getRow(rowIndex);
 		if (null == row)
 			return null;
@@ -351,12 +354,17 @@ public class ExcelCellReader {
 		}
 
 		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-			return (cell.getRichStringCellValue().getString().trim());
+			String val = cell.getRichStringCellValue().getString().trim();
+			if (val.length() == 0) {
+				return null;
+			}
+			return val;
 		} else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 			double d = cell.getNumericCellValue();
 			return new Double(d).toString().replaceAll("\\.0+$", "");
 		} else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
-			return getBooleanFromCell(cell, evaluator) ? "TRUE" : "FALSE";
+			Boolean val = getBooleanFromCell(cell, evaluator);
+			return val == null ? null : val.toString();
 		} else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
 			CellValue cellValue = evaluator.evaluate(cell);
 			return (cellValue.getStringValue().trim());

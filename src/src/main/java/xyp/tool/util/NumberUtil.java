@@ -96,12 +96,6 @@ public class NumberUtil {
 		return (byte) r;
 	}
 
-	public static void main(String[] args) {
-
-		System.out.println(HexToByte("ff"));
-		System.out.println((byte) 0xff);
-	}
-
 	public static String byteToHex(byte b) {
 		char[] ret = new char[2];
 		byte b0 = (byte) ((b >> 4) & (0x0F));
@@ -150,6 +144,10 @@ public class NumberUtil {
 		// a97
 		// z122
 		return ret;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(stringIndexToIntIndex("rr"));
 	}
 
 }

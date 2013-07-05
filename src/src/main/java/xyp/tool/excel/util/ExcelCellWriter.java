@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 public class ExcelCellWriter {
 	private static Log logger = LogFactory.getLog(ExcelCellWriter.class);
@@ -19,6 +20,18 @@ public class ExcelCellWriter {
 		writeToCell(value, row.createCell(cellIndex), style);
 	}
 
+	public static void writeToCell(Object value, Sheet sheet, int rowIndex, int cellIndex,
+			HSSFCellStyle style) {
+		if (value == null) {
+			return;
+		}
+		Row row = sheet.getRow(rowIndex);
+		if (null == row) {
+			row = sheet.createRow(rowIndex);
+		}
+		writeToCell(value, row.createCell(cellIndex), style);
+	}
+	
 	public static void writeToCell(Object value, Cell cell, HSSFCellStyle style) {
 		if (value == null || cell == null)
 			return;
