@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,10 +75,8 @@ public class SqlContainer {
 			String velocityFileName = properties.getProperty(PROPERTIES_VELOCITY_CONFIG);
 
 			if (null != velocityFileName && !velocityFileName.isEmpty()) {
-				URI uri = SqlContainer.class.getClassLoader()
-						.getResource(velocityFileName).toURI();
-
-				velocityEngineWrapper = VelocityEngineWrapper.newInstance(new File(uri));
+				velocityEngineWrapper = VelocityEngineWrapper.newInstance(
+						SqlContainer.class.getClassLoader().getResourceAsStream(velocityFileName));
 			}
 		} catch (IOException e) {
 			logger.error("can't find properties file.", e);

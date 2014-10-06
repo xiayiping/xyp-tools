@@ -1,9 +1,8 @@
 package xyp.tool.velocity;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Iterator;
@@ -29,22 +28,20 @@ public class VelocityEngineWrapper {
 
 	private VelocityEngine velocityEngine = null;
 
-	public static VelocityEngineWrapper newInstance(File configFile) throws FileNotFoundException,
+	public static VelocityEngineWrapper newInstance(InputStream is) throws FileNotFoundException,
 			IOException {
-		FileInputStream fi = null;
 		try {
 			VelocityEngineWrapper eng = new VelocityEngineWrapper();
 			Properties props = new Properties();
-			fi = new FileInputStream(configFile);
-			props.load(fi);
+			props.load(is);
 			eng.velocityEngine = new VelocityEngine();
 			eng.velocityEngine.init(props);
 			return eng;
 		} finally {
-			fi.close();
+			is.close();
 		}
 	}
-
+	
 	public String mergeTemplate(String templateName, Map<String, ?> param) {
 
 		StringWriter sw = new StringWriter();
@@ -61,11 +58,12 @@ public class VelocityEngineWrapper {
 		Template template = velocityEngine.getTemplate(templateName);
 		VelocityContext context1 = new VelocityContext();
 		if (null != param) {
-			Iterator<?> iter = param.entrySet().iterator();
+			Iterator<?> iter = param.entrySet().iterator();  
 			while (iter.hasNext()) {
-				Entry<String, Object> ent = (Entry<String, Object>) (iter.next());
+				@SuppressWarnings("unchecked")
+				Entry<String, Object> ent =  (Entry<String, Object>) (iter.next());
 				context1.put(ent.getKey(), ent.getValue());
-			}
+			} 
 		}
 		template.merge(context1, writer);
 
